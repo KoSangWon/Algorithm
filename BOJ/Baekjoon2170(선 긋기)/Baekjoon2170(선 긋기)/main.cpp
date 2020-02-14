@@ -7,26 +7,42 @@
 //
 
 #include <iostream>
+#include <algorithm>
 using namespace std;
-#define MAX 2000000003
 
-bool arr[MAX] = {0};
+typedef pair<int, int> P;
+P L[1000001];
 int N;
-int a, b;
-int len = 0;
+int from, to;
+int l, r;
+int ans = 0;
 
 int main(int argc, const char * argv[]) {
     ios_base::sync_with_stdio(false);
-    cin.tie(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
     cin >> N;
     for(int i = 0; i < N; i++){
-        cin >> a >> b;
-        for(int j = a; j < b; j++){
-            if(arr[j] == false)
-                len++;
-            arr[j] = true;
+        cin >> from >> to;
+        L[i] = P(from, to);
+    }
+    sort(L, L+N);
+    l = L[0].first;
+    r = L[0].second;
+    
+    for(int i = 1; i < N; i++){
+        if(L[i].first > r){//안겹치는 경우
+            ans += r-l;
+            l = L[i].first;
+            r = L[i].second;
+        }
+        else if(L[i].first < r && L[i].second > r){//겹치는 경우
+            r = L[i].second;
         }
     }
-    cout << len << '\n';
+    ans += r-l;
+    
+    cout << ans << '\n';
+    
     return 0;
 }
