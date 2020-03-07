@@ -23,7 +23,7 @@ int main(int argc, const char * argv[]) {
     
     for(int i = N; i >= 1; i--){
         if(i + T[i] - 1 > N){
-            dp[i] = max(dp[i + 1], 0);
+            dp[i] = dp[i + 1];
             continue;
         }
         
