@@ -1,32 +1,43 @@
-//
-//  main.cpp
-//  Baekjoon1748(수 이어 쓰기 1)
-//
-//  Created by 고상원 on 2020/04/06.
-//  Copyright © 2020 고상원. All rights reserved.
-//
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+#include<memory.h>
+#include<string.h>
 
-#include <iostream>
-#include <cmath>
-#include <cstdlib>
-using namespace std;
+void print_array(int size, int * arr){
+   int i;
+   for(i = 0 ; i < size; i++){
+      printf("%d ", arr[i]);
+   }
+}
 
-int main(int argc, const char * argv[]) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);cout.tie(NULL);
-    string N;
-    long ans = 0;
-    cin >> N;
+int main(){
+   int N;
+    int A[100000] = {0};
+   int i, j;
+
+   scanf("%d", &N);
+
+   for(i = 0 ; i < N ; i++){
+      scanf("%d", &A[i]);
+   }
+
+    int temp;
     
-    int len = int(N.length());
-    if(len == 1)
-        ans = stoi(N);
-    else{
-        for(int i = 1; i < len; i++)
-            ans += i * (9 * pow(10, i-1));
-        ans += len * (stoi(N) - pow(10, len-1) + 1);
+    for(i=0;i<N;i++)
+    {
+        for(j=0;j<(N-i)-1;j++)
+        {
+            if(A[j]>A[j+1])
+            {
+            temp=A[j];
+            A[j]=A[j+1];
+            A[j+1]=temp;
+            }
+        }
+
     }
-    
-    cout << ans << '\n';
-    return 0;
+
+   print_array(N, A);
+   return 0;
 }
